@@ -1,7 +1,6 @@
 from utils import ollama_model
 
 from strands import Agent, tool
-from strands_tools import file_read, file_write, editor
 
 from .english_prompt import ENGLISH_ASSISTANT_SYSTEM_PROMPT
 
@@ -30,7 +29,6 @@ def english_agent(query: str) -> str:
             model=ollama_model,
             system_prompt=ENGLISH_ASSISTANT_SYSTEM_PROMPT,
             # callback_handler=None
-            tools=[editor, file_read, file_write],
         )
 
         response = english_agent(formatted_query)
