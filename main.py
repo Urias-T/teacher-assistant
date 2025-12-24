@@ -2,7 +2,7 @@ from strands import Agent
 
 from utils import bedrock_model, ollama_model
 
-from sub_agents import math_agent
+from sub_agents import math_agent, english_agent
 
 from teacher_prompt import TEACHER_SYSTEM_PROMPT
 
@@ -15,7 +15,7 @@ teacher_agent = Agent(
     model=ollama_model,
     system_prompt=TEACHER_SYSTEM_PROMPT,
     # callback_handler=None,
-    tools=[math_agent],
+    tools=[math_agent, english_agent],
 )
 
 
