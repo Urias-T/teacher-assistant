@@ -1,17 +1,18 @@
 from strands import Agent
 
-from utils import bedrock_model
+from utils import bedrock_model, ollama_model
 
 from sub_agents import math_agent
 
 from teacher_prompt import TEACHER_SYSTEM_PROMPT
 
 import logging
+
 logging.basicConfig(level=logging.INFO)
 
 
 teacher_agent = Agent(
-    model=bedrock_model,
+    model=ollama_model,
     system_prompt=TEACHER_SYSTEM_PROMPT,
     # callback_handler=None,
     tools=[math_agent],

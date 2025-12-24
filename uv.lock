@@ -616,6 +616,19 @@ wheels = [
 ]
 
 [[package]]
+name = "ollama"
+version = "0.6.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "httpx" },
+    { name = "pydantic" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/9d/5a/652dac4b7affc2b37b95386f8ae78f22808af09d720689e3d7a86b6ed98e/ollama-0.6.1.tar.gz", hash = "sha256:478c67546836430034b415ed64fa890fd3d1ff91781a9d548b3325274e69d7c6", size = 51620, upload-time = "2025-11-13T23:02:17.416Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/47/4f/4a617ee93d8208d2bcf26b2d8b9402ceaed03e3853c754940e2290fed063/ollama-0.6.1-py3-none-any.whl", hash = "sha256:fc4c984b345735c5486faeee67d8a265214a31cbb828167782dc642ce0a2bf8c", size = 14354, upload-time = "2025-11-13T23:02:16.292Z" },
+]
+
+[[package]]
 name = "opentelemetry-api"
 version = "1.39.1"
 source = { registry = "https://pypi.org/simple" }
@@ -1142,6 +1155,11 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/8a/9c/c23d87d1305e671a4281500d846b6b3e49649ec27d0dec2831bcdb58d704/strands_agents-1.20.0-py3-none-any.whl", hash = "sha256:f8d0c868867191e6a1eadf3c9b060b3719c79323b4a02dfd127e4b2c67e6fc63", size = 319068, upload-time = "2025-12-15T20:41:12.978Z" },
 ]
 
+[package.optional-dependencies]
+ollama = [
+    { name = "ollama" },
+]
+
 [[package]]
 name = "strands-agents-tools"
 version = "0.2.18"
@@ -1199,6 +1217,7 @@ dependencies = [
 [package.dev-dependencies]
 dev = [
     { name = "ruff" },
+    { name = "strands-agents", extra = ["ollama"] },
 ]
 
 [package.metadata]
@@ -1213,7 +1232,10 @@ requires-dist = [
 ]
 
 [package.metadata.requires-dev]
-dev = [{ name = "ruff", specifier = ">=0.14.10" }]
+dev = [
+    { name = "ruff", specifier = ">=0.14.10" },
+    { name = "strands-agents", extras = ["ollama"], specifier = ">=1.20.0" },
+]
 
 [[package]]
 name = "tenacity"

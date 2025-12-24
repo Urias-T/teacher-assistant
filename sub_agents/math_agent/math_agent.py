@@ -3,7 +3,7 @@ from strands_tools import calculator
 
 from .math_prompt import MATH_ASSISTANT_SYSTEM_PROMPT
 
-from utils import bedrock_model
+from utils import bedrock_model, ollama_model
 
 import logging
 
@@ -26,7 +26,7 @@ def math_agent(query: str) -> str:
         logging.info("Routed to math agent")
 
         math_agent = Agent(
-            model=bedrock_model,
+            model=ollama_model,
             system_prompt=MATH_ASSISTANT_SYSTEM_PROMPT,
             # callback_handler=None,
             tools=[calculator],
@@ -41,5 +41,7 @@ def math_agent(query: str) -> str:
         return "I was unable to solve thisproblem. Please check that the question is phrased properly."
 
     except Exception as e:
-        logging.error(f"An error occured in processing this query: {str(e)}", exc_info=True)
+        logging.error(
+            f"An error occured in processing this query: {str(e)}", exc_info=True
+        )
         return f"An error occured in processing this query: {str(e)}"
