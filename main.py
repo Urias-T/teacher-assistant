@@ -22,7 +22,7 @@ app = FastAPI(title="Teacher Assistant Server", version="0.1.0")
 
 
 teacher_agent = Agent(
-    model=ollama_model,
+    model=bedrock_model,
     system_prompt=TEACHER_SYSTEM_PROMPT,
     # callback_handler=None,
     tools=[math_agent, english_agent],

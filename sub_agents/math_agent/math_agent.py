@@ -26,7 +26,7 @@ def math_agent(query: str) -> str:
         logging.info("Routed to math agent")
 
         math_agent = Agent(
-            model=ollama_model,
+            model=bedrock_model,
             system_prompt=MATH_ASSISTANT_SYSTEM_PROMPT,
             # callback_handler=None,
             tools=[calculator],

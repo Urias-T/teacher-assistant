@@ -1,4 +1,4 @@
-from utils import ollama_model
+from utils import bedrock_model, ollama_model
 
 from strands import Agent, tool
 
@@ -26,7 +26,7 @@ def english_agent(query: str) -> str:
         logging.info("Routed to the english agent")
 
         english_agent = Agent(
-            model=ollama_model,
+            model=bedrock_model,
             system_prompt=ENGLISH_ASSISTANT_SYSTEM_PROMPT,
             # callback_handler=None
         )
