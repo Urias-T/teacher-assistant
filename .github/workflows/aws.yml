@@ -55,6 +55,6 @@ jobs:
 
     - name: Run deployment script
       env:
-        ACCOUNT_ID: ${{ env.AWS_ACCOUNT_ID }}
+        ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
       run: |
         python infra/deploy_agent.py
