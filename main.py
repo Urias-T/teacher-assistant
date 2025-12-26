@@ -68,7 +68,10 @@ async def invoke_agent(request: InvocationRequest):
 
 @app.get("/ping")
 async def ping():
-    return {"status": "healthy"}
+    return {
+        "status": "healthy",
+        "message": "Agent runtime is available"
+}
 
 
 if __name__ == "__main__":
