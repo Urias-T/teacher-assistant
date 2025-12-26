@@ -58,3 +58,4 @@ jobs:
         ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
       run: |
         python infra/deploy_agent.py
+        
