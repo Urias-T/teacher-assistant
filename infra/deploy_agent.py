@@ -25,6 +25,7 @@ response = client.update_agent_runtime(
             "containerUri": f"{account_id}.dkr.ecr.eu-west-1.amazonaws.com/teacher-assistant:latest"
         }
     },
+    networkConfiguration={"networkMode": "PUBLIC"},
     roleArn=f"arn:aws:iam::{account_id}:role/AgentRuntimeRole",
 )
 
