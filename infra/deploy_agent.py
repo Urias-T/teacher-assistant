@@ -13,16 +13,21 @@ account_id = os.getenv("ACCOUNT_ID")
 
 client = boto3.client("bedrock-agentcore-control")
 
-response = client.create_agent_runtime(
-    agentRuntimeName="teacher_assistant",
+runtimes = client.list_agent_runtimes().get("agentRuntimes", [])
+existing_agent = next(
+    (a for a in runtimes if a["agentRuntimeName"] == "teacher_assistant"), None
+)
+
+response = client.update_agent_runtime(
+    agentRuntimeId=existing_agent["agentRuntimeId"],
     agentRuntimeArtifact={
         "containerConfiguration": {
             "containerUri": f"{account_id}.dkr.ecr.eu-west-1.amazonaws.com/teacher-assistant:latest"
         }
     },
-    networkConfiguration={"networkMode": "PUBLIC"},
     roleArn=f"arn:aws:iam::{account_id}:role/AgentRuntimeRole",
 )
+
 
 logging.info("Agent Runtime created successfully!")
 logging.info(f"Agent Runtime ARN: {response['agentRuntimeArn']}")
