@@ -1,3 +1,5 @@
+import os
+
 from fastapi import FastAPI, HTTPException
 from strands import Agent
 
@@ -46,6 +48,15 @@ async def invoke_agent(request: InvocationRequest):
             raise HTTPException(
                 status_code=400, detail="No prompt provided. Please provide one."
             )
+
+        session_id = request.input.get("session_id", "")
+        if not session_id:
+            logging.error("No session_id given in input...")
+            raise HTTPException(
+                status_code=400, detail="No session_id provided. Please provide one."
+            )
+
+        os.environ["SESSION_ID"] = session_id
 
         response = teacher_agent(user_input)
 

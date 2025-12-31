@@ -2,7 +2,6 @@ import os
 from dotenv import load_dotenv
 
 from strands import Agent, tool
-from strands.hooks import HookRegistry
 
 from strands_tools import calculator
 from strands_tools.agent_core_memory import AgentCoreMemoryToolProvider
@@ -24,12 +23,9 @@ client = MemoryClient(region_name=os.getenv("REGION_NAME"))
 memory_name = os.getenv("MEMORY_NAME")
 memory_id = os.getenv("MEMORY_ID")
 memory_strategy_id = os.getenv("MEMORY_STRATEGY_ID")
-session_id = os.getenv("SESSION_ID")
 
 
 math_memory_hooks = MemoryHookProvider(memory_id=memory_id, client=client)
-
-math_memory_hooks.register_hooks(registry=HookRegistry)
 
 
 @tool
@@ -47,21 +43,26 @@ def math_agent(query: str) -> str:
     try:
         logging.info("Routed to math agent")
 
+        session_id = os.getenv("SESSION_ID")
+
         actor_id = "math-subagent"
         math_namespace = (
             f"/strategies/{memory_strategy_id}/actors/{actor_id}/sessions/{session_id}"
         )
 
         provider_math = AgentCoreMemoryToolProvider(
-            memory_id=os.getenv("MEMORY_ID"),
+            memory_id=memory_id,
             actor_id=actor_id,
-            session_id=os.getenv("SESSION_ID"),
+            session_id=session_id,
             region=os.getenv("REGION_NAME"),
             namespace=math_namespace,
         )
 
+        math_memory_hooks.set_actor_id(actor_id=actor_id)
+        math_memory_hooks.set_session_id(session_id=session_id)
+
         math_agent = Agent(
-            model=bedrock_model,
+            model=ollama_model,
             system_prompt=MATH_ASSISTANT_SYSTEM_PROMPT,
             # callback_handler=None,
             # .tools method from provider returns a list

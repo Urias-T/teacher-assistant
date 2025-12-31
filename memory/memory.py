@@ -8,7 +8,7 @@ from bedrock_agentcore.memory import MemoryClient
 from strands.hooks import AfterInvocationEvent, HookProvider, HookRegistry
 
 
-logging.basicConfig(level=logging.DEBUG)  # Switch to INFO before pushing to prod...
+logging.basicConfig(level=logging.INFO)  # Switch to INFO before pushing to prod...
 
 
 load_dotenv()
@@ -25,15 +25,22 @@ class MemoryHookProvider(HookProvider):
         self.memory_id = memory_id
         self.client = client
 
-    def save_memories(self, event: AfterInvocationEvent):
+    def set_actor_id(self, actor_id: str) -> None:
+        self.actor_id = actor_id
+
+    def set_session_id(self, session_id: str) -> None:
+        self.session_id = session_id
+
+    def after_invocation(self, event: AfterInvocationEvent):
         """Save conversation after agent response"""
+        logging.info("Triggered save memory hook")
         try:
             messages = event.agent.messages
             if len(messages) >= 2:
                 user_msg = None
                 assistant_msg = None
 
-                logging.debug("MESSAGES: ", messages)
+                logging.debug(f"MESSAGES: {str(messages)}")
 
                 for msg in reversed(messages):
                     if msg["role"] == "assistant" and not assistant_msg:
@@ -46,12 +53,15 @@ class MemoryHookProvider(HookProvider):
                         user_msg = msg["content"][0]["text"]
                         break
 
-                if user_msg and assistant_msg:
-                    actor_id = event.agent.state.get("actor_id")
-                    session_id = event.agent.state.get("session_id")
+                logging.info(f"USER MSG: {str(user_msg)}")
+                logging.info(f"ASSISTANT MSG: {str(assistant_msg)}")
 
-                    logging.debug("ACTOR_ID: ", actor_id)
-                    logging.debug("SESSION_ID: ", session_id)
+                if user_msg and assistant_msg:
+                    actor_id = self.actor_id
+                    session_id = self.session_id
+
+                    logging.debug(f"ACTOR_ID: {actor_id}")
+                    logging.debug(f"SESSION_ID: {session_id}")
 
                     if not actor_id or not session_id:
                         logging.warning(
@@ -71,7 +81,7 @@ class MemoryHookProvider(HookProvider):
         except Exception as e:
             logging.error(f"Failed to save conversation to memory: {str(e)}")
 
-        def register_hooks(self, registry: HookRegistry):
-            """Register memory hooks"""
-            registry.add_callback(AfterInvocationEvent, self.save_memories)
-            logging.info("Memory hooks registered")
+    def register_hooks(self, registry: HookRegistry):
+        """Register memory hooks"""
+        registry.add_callback(AfterInvocationEvent, self.after_invocation)
+        logging.info("Memory hooks registered")
