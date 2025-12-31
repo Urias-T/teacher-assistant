@@ -61,7 +61,7 @@ def english_agent(query: str) -> str:
         english_memory_hooks.set_session_id(session_id=session_id)
 
         english_agent = Agent(
-            model=ollama_model,
+            model=bedrock_model,
             system_prompt=ENGLISH_ASSISTANT_SYSTEM_PROMPT,
             # callback_handler=None,
             tools=provider_english.tools,  # .tools method from provider returns a list
