@@ -1,6 +1,6 @@
 # Teacher Assistant 🧑‍🏫
 
-Teacher Assistant is a multi-agent AI-powered system designeed to assist with eduacational queries. It is built with the [AWS Strands](https://strandsagents.com/latest/) framework and deployed on the [Bedrock AgentCore Service](https://aws.amazon.com/bedrock/agentcore/). The system intelligently routes the user's queries to specialized agents for accurate and contextual responses.
+Teacher Assistant is a multi-agent AI-powered system designed to assist with educational queries. It is built with the [AWS Strands](https://strandsagents.com/latest/) framework and deployed on the [Bedrock AgentCore Service](https://aws.amazon.com/bedrock/agentcore/). The system intelligently routes the user's queries to specialized agents for accurate and contextual responses.
 
 ## Architecture ⚙️
 
@@ -170,4 +170,4 @@ This project is made available under the [MIT License](https://github.com/Urias-
 For issues or questions, please open an issue in the repository or contact me at: triumph@triumphurias.com
 
 ## WIP🚧 
-Plans to include more agents and functionality are in the works. 
+Plans to include more agents and functionality are in the works. Feel free to forward your suggestions to the email address in the `Support` section above.
