@@ -7,6 +7,7 @@ Teacher Assistant is a multi-agent AI-powered system designeed to assist with ed
 ![architecture](./docs/teacher_assistant_diagram.png "Architecture Diagram")
 
 
+
 It is a multi-agent system with _(at this time)_ three agents including:
 
 - **Orchestrator Agent**: For understanding user intent and coordinating responses from sub-agents.
