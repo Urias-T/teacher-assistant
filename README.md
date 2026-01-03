@@ -163,7 +163,7 @@ Contributions are welcome! Please submit pull requests or open issues for any bu
 
 ## License ⚖️
 
-[Add your license information here]
+This project is made available under the [MIT License](https://github.com/Urias-T/teacher-assistant/blob/dev/LICENSE).
 
 ## Support 📧
 
