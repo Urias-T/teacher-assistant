@@ -169,6 +169,5 @@ This project is made available under the [MIT License](https://github.com/Urias-
 
 For issues or questions, please open an issue in the repository or contact me at: triumph@triumphurias.com
 
-## How to Run
-
-🚧 Plans to include more agents are in the works
+## WIP🚧 
+Plans to include more agents and functionality are in the works. 
