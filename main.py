@@ -39,7 +39,7 @@ class InvocationResponse(BaseModel):
     output: Dict[str, Any]
 
 
-@app.post("/invocation", response_model=InvocationResponse)
+@app.post("/invocations", response_model=InvocationResponse)
 async def invoke_agent(request: InvocationRequest):
     try:
         user_input = request.input.get("prompt", "")
