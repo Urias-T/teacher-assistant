@@ -5,6 +5,7 @@ import os
 from dotenv import load_dotenv
 
 import uuid
+import secrets
 
 import logging
 
@@ -19,7 +20,10 @@ def generate_session_id() -> str:
     Returns:
         str: the 32-character session ID
     """
-    uid = uuid.uuid4().hex
+    initial_uid = uuid.uuid4().hex  # only 32-characters
+    extra_character = secrets.token_hex(1)[0]  # 1 extra character
+
+    uid = initial_uid + extra_character  # 33-characters
 
     print(uid)
     hex_to_letter = str.maketrans("0123456789abcdef", "abcdefghijklmnop")
