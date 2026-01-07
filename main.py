@@ -41,6 +41,7 @@ class InvocationResponse(BaseModel):
 
 @app.post("/invocations", response_model=InvocationResponse)
 async def invoke_agent(request: InvocationRequest):
+    logging.info("Triggered invoke endpoint...")
     try:
         user_input = request.input.get("prompt", "")
         if not user_input:
